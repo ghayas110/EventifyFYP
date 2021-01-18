@@ -18,14 +18,15 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     // <SplashScreen/>
+    <SignUpScreen/>
   //  <ExploreScreen/>
-    <NavigationContainer>
-       {/* <SignUpScreen/>  */}
- <Drawer.Navigator initialRouteName="Home" drawerContent={props=><DrawerContent {...props}/>}>
-    <Drawer.Screen name="Home" component={MyTabs} />
+//     <NavigationContainer>
+      
+//  <Drawer.Navigator initialRouteName="Home" drawerContent={props=><DrawerContent {...props}/>}>
+//     <Drawer.Screen name="Home" component={MyTabs} />
   
-  </Drawer.Navigator> 
-  </NavigationContainer>
+//   </Drawer.Navigator> 
+//   </NavigationContainer>
   
 
 

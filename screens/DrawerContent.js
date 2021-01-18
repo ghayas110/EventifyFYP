@@ -73,25 +73,15 @@ export default function DrawerContent(props) {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="settings-helper" 
+                                name="basket" 
                                 color={color}
                                 size={size}
                                 />
                             )}
-                            label="Settings"
+                            label="Setting"
                             onPress={() => {props.navigation.navigate('SettingsScreen')}}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-check-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Support"
-                            onPress={() => {props.navigation.navigate('SupportScreen')}}
-                        />
+                  
                     </Drawer.Section>
                     
                 </View>

@@ -1,12 +1,23 @@
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  TouchableHighlight,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
 
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+// import {SwipeListView} from 'react-native-swipe-list-view';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+ 
 
 export default function DetailScreen() {
   return (
     <View style={styles.container}>
-      <Text>sidra ghayas hamza zafar</Text>
-     
+      <Text>sidra ghayas hamza zafar</Text> 
     </View>
   );
 }

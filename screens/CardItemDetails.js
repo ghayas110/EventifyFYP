@@ -1,103 +1,81 @@
-import React, {useRef} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Dimensions,
-  StatusBar,
-  Platform,
-} from 'react-native';
-import HeaderImageScrollView, {
-  TriggeringView,
-} from 'react-native-image-header-scroll-view';
 
-import * as Animatable from 'react-native-animatable';
-
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
+import React from 'react';
+import { Image, StyleSheet, Text, View,Dimensions,TouchableOpacity } from 'react-native';
+import HeaderImageScrollView, {TriggeringView} from 'react-native-image-header-scroll-view';
+import LinearGradient from 'react-native-linear-gradient';
+import { block } from 'react-native-reanimated';
 const MIN_HEIGHT = Platform.OS === 'ios' ? 90 : 55;
 const MAX_HEIGHT = 350;
-
-const CardItemDetails = ({route}) => {
+const CardItemDetails=({route})=> {
   const itemData = route.params.itemData;
-  const navTitleView = useRef(null);
-
+  
   return (
+
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <HeaderImageScrollView
-        maxHeight={MAX_HEIGHT}
-        minHeight={MIN_HEIGHT}
-        maxOverlayOpacity={0.6}
-        minOverlayOpacity={0.3}
-        renderHeader={() => (
-          <Image source={itemData.image} style={styles.image} />
-        )}
-        renderForeground={() => (
-          <View style={styles.titleContainer}>
+ 
+<TriggeringView>
+  <View>
+  
+  <Image source={itemData.image} style={styles.image} />
+  <View style={styles.titleContainer}>
             <Text style={styles.imageTitle}>{itemData.title}</Text>
           </View>
-        )}
-        renderFixedForeground={() => (
-          <Animatable.View style={styles.navTitleView} ref={navTitleView}>
+  <View style={styles.navTitleView} >
             <Text style={styles.navTitle}>{itemData.title}</Text>
-          </Animatable.View>
-        )}>
-        <TriggeringView
-          style={styles.section}
-          onHide={() => navTitleView.current.fadeInUp(200)}
-          onDisplay={() => navTitleView.current.fadeOut(100)}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={styles.title}>Overview</Text>
-            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-              <FontAwesome name="star" size={16} color="#FF6347" />
-              <Text style={{marginHorizontal: 2}}>{itemData.rating}</Text>
-              <Text>({itemData.reviews})</Text>
-            </View>
           </View>
-        </TriggeringView>
-        <View style={[styles.section, styles.sectionLarge]}>
+          <View style={styles.titles}>
+    <Text style={styles.title}>Overview</Text>
+    </View>
+  </View>
+</TriggeringView>
+<View style={[styles.section, styles.sectionLarge]}>
           <Text style={styles.sectionContent}>{itemData.description}</Text>
+          <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
+          <Text style={styles.panelButtonTitle}>Chat Now</Text>
+        </TouchableOpacity>
         </View>
-
-        <View style={styles.section}>
-          <View style={styles.categories}>
-            {itemData.categories.map((category, index) => (
-              <View style={styles.categoryContainer} key={index}>
-                <FontAwesome name="tag" size={16} color="#fff" />
-                <Text style={styles.category}>{category}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
-
-   
-      </HeaderImageScrollView>
+      
     </View>
   );
-};
-
+}
 export default CardItemDetails;
-
 const styles = StyleSheet.create({
+  titles:{
+padding:10
+  },
   container: {
     flex: 1,
   },
   image: {
     height: MAX_HEIGHT,
-    width: '100%',
+    width: Dimensions.get('window').width,
     alignSelf: 'stretch',
     resizeMode: 'cover',
+    shadowColor: '#0000',
+    opacity:0.7
+  },
+  commandButton: {
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  panelButtonTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: 'white',
   },
   title: {
     fontSize: 20,
+    fontWeight:'bold'
+    
   },
   name: {
     fontWeight: 'bold',
   },
   section: {
-    padding: 20,
+    padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc',
     backgroundColor: 'white',
@@ -136,9 +114,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageTitle: {
-    color: 'white',
+    color: 'black',
     backgroundColor: 'transparent',
-    fontSize: 24,
+    fontSize: 34,
+    marginBottom:100,
+    fontWeight:'bold'
   },
   navTitleView: {
     height: MIN_HEIGHT,
@@ -146,11 +126,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: Platform.OS === 'ios' ? 40 : 5,
     opacity: 0,
+    marginTop:-34
   },
   navTitle: {
-    color: 'white',
+    color: 'black',
     fontSize: 18,
     backgroundColor: 'transparent',
+    
+
   },
   sectionLarge: {
     minHeight: 300,

@@ -1,7 +1,7 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator, HeaderBackground, HeaderTitle} from '@react-navigation/stack';
 import React from 'react';
 import HomeScreen from "./Homescreen";
 import DetailScreen from "./DetailScreen";
@@ -101,6 +101,7 @@ const DetailStackScreen =({navigation})=> {
                 name="ios-search"
                 size={25}
                 color='black'
+                style={{marginTop:10}}
                 onPress={() => {}}
               />
               <TouchableOpacity
@@ -121,12 +122,15 @@ const DetailStackScreen =({navigation})=> {
         <HomeStack.Screen 
         name="CardListScreen"
         component={CardListScreen}
-        options={{title:" Planners",headerTitleAlign: 'center',headerTintColor:"black"}} />
+        options={{title:" Planners",headerTitleAlign: 'center',headerTintColor:"white"}} />
           
           <HomeStack.Screen 
         name="CardItemDetails"
         component={CardItemDetails}
-        options={{title:" Planners",headerTitleAlign: 'center',headerTintColor:"black"}} />
+        options={{ headerBackTitleVisible:false,headerTitle:false,headerTransparent:true,headerTintColor:"white",title:" Planners",headerTitleAlign: 'center',headerTintColor:"black" }
+        
+        }
+         />
       </HomeStack.Navigator>
       )
     }

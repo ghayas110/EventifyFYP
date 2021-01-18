@@ -12,33 +12,33 @@ import Animated from 'react-native-reanimated';
 
 export default function EditProfile() {
 
-    renderInner = () => (
-        <View style={styles.panel}>
-          <View style={{alignItems: 'center'}}>
-            <Text style={styles.panelTitle}>Upload Photo</Text>
-            <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
-          </View>
-          <TouchableOpacity style={styles.panelButton} onPress={()=>{}}>
-            <Text style={styles.panelButtonTitle}>Take Photo</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.panelButton} onPress={()=>{}}>
-            <Text style={styles.panelButtonTitle}>Choose From Library</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.panelButton}
-            onPress={() => bs.current.snapTo(1)}>
-            <Text style={styles.panelButtonTitle}>Cancel</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    
-       renderHeader = () => (
-        <View style={styles.header}>
-          <View style={styles.panelHeader}>
-            <View style={styles.panelHandle} />
-          </View>
-        </View>
-      );
+  renderInner = () => (
+    <View style={styles.panel}>
+      <View style={{alignItems: 'center'}}>
+        <Text style={styles.panelTitle}>Upload Photo</Text>
+        <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
+      </View>
+      <TouchableOpacity style={styles.panelButton} onPress={()=>{}}>
+        <Text style={styles.panelButtonTitle}>Take Photo</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.panelButton} onPress={()=>{}}>
+        <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={() => bs.current.snapTo(1)}>
+        <Text style={styles.panelButtonTitle}>Cancel</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+   renderHeader = () => (
+    <View style={styles.header}>
+      <View style={styles.panelHeader}>
+        <View style={styles.panelHandle} />
+      </View>
+    </View>
+  );
 
       bs = React.createRef();
       fall = new Animated.Value(1);
