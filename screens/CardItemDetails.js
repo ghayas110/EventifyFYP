@@ -116,7 +116,7 @@ padding:10
   imageTitle: {
     color: 'black',
     backgroundColor: 'transparent',
-    fontSize: 34,
+    fontSize: 24,
     marginBottom:100,
     fontWeight:'bold'
   },
