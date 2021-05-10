@@ -14,9 +14,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
+import { useTheme } from 'react-native-paper';
 
+import { AuthContext } from '../component/context';
 
-
+import Users from '../models/users';
 
 const SignInScreen = ({navigation}) => {
 
@@ -29,7 +31,9 @@ const SignInScreen = ({navigation}) => {
         isValidPassword: true,
     });
 
- 
+    const { colors } = useTheme();
+
+    const { signIn } = React.useContext(AuthContext);
 
     const textInputChange = (val) => {
         if( val.trim().length >= 4 ) {
@@ -86,35 +90,62 @@ const SignInScreen = ({navigation}) => {
         }
     }
 
+    const loginHandle = (userName, password) => {
+
+        const foundUser = Users.filter( item => {
+            return userName == item.username && password == item.password;
+        } );
+
+        if ( data.username.length == 0 || data.password.length == 0 ) {
+            Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
+                {text: 'Okay'}
+            ]);
+            return;
+        }
+
+        if ( foundUser.length == 0 ) {
+            Alert.alert('Invalid User!', 'Username or password is incorrect.', [
+                {text: 'Okay'}
+            ]);
+            return;
+        }
+        signIn(foundUser);
+       
+        {navigation.navigate('MainTabScreen')}
+
+            
+    }
+
     return (
       <View style={styles.container}>
+          <StatusBar backgroundColor='#009387' barStyle="light-content"/>
         <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
         </View>
         <Animatable.View 
             animation="fadeInUpBig"
             style={[styles.footer, {
-                backgroundColor: "white"
+                backgroundColor: colors.background
             }]}
         >
             <Text style={[styles.text_footer, {
-                color: "black"
+                color: colors.text
             }]}>Username</Text>
             <View style={styles.action}>
                 <FontAwesome 
                     name="user-o"
-                    color={'black'}
+                    color={colors.text}
                     size={20}
                 />
                 <TextInput 
                     placeholder="Your Username"
                     placeholderTextColor="#666666"
                     style={[styles.textInput, {
-                        color: 'black'
+                        color: colors.text
                     }]}
                     autoCapitalize="none"
                     onChangeText={(val) => textInputChange(val)}
-                
+                    onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
                 />
                 {data.check_textInputChange ? 
                 <Animatable.View
@@ -136,13 +167,13 @@ const SignInScreen = ({navigation}) => {
             
 
             <Text style={[styles.text_footer, {
-                color: 'black',
+                color: colors.text,
                 marginTop: 35
             }]}>Password</Text>
             <View style={styles.action}>
                 <Feather 
                     name="lock"
-                    color={"black"}
+                    color={colors.text}
                     size={20}
                 />
                 <TextInput 
@@ -150,7 +181,7 @@ const SignInScreen = ({navigation}) => {
                     placeholderTextColor="#666666"
                     secureTextEntry={data.secureTextEntry ? true : false}
                     style={[styles.textInput, {
-                        color: 'black'
+                        color: colors.text
                     }]}
                     autoCapitalize="none"
                     onChangeText={(val) => handlePasswordChange(val)}
@@ -186,7 +217,7 @@ const SignInScreen = ({navigation}) => {
             <View style={styles.button}>
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={() => {}}
+                    onPress={() => {loginHandle( data.username, data.password )}}
                 >
                 <LinearGradient
                     colors={['#F99B4E', '#F99B4E']}

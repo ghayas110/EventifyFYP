@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet,View} from 'react-native';
-import {Avatar,Title,Caption,Paragraph,Drawer,Text,TouchableRipple,Switch} from "react-native-paper"; 
+import {Avatar,Title,Caption,Paragraph,Drawer} from "react-native-paper"; 
 import {DrawerContentScrollView,DrawerItem} from "@react-navigation/drawer";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeScreen from './Homescreen';
-export default function DrawerContent(props) {
+
+export  function DrawerContent(props) {
     
     return(
         <View style={{flex:1}}>
@@ -14,13 +14,14 @@ export default function DrawerContent(props) {
                     <View style={styles.userInfoSection}>
                         <View style={{flexDirection:'row',marginTop: 15}}>
                             <Avatar.Image 
-                                source={
-                                    require('../assets/ghayas.jpg' )  }
+                                source={{
+                                    uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
+                                }}
                                 size={50}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>Ghayas Ali</Title>
-                                <Caption style={styles.caption}>@ghayas</Caption>
+                                <Title style={styles.title}>John Doe</Title>
+                                <Caption style={styles.caption}>@j_doe</Caption>
                             </View>
                         </View>
 
@@ -73,32 +74,30 @@ export default function DrawerContent(props) {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="basket" 
+                                name="settings-outline" 
                                 color={color}
                                 size={size}
                                 />
                             )}
-                            label="Setting"
+                            label="Settings"
                             onPress={() => {props.navigation.navigate('SettingsScreen')}}
                         />
-                  
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="account-check-outline" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Support"
+                            onPress={() => {props.navigation.navigate('SupportScreen')}}
+                        />
                     </Drawer.Section>
-                    
+                
                 </View>
             </DrawerContentScrollView>
-            <Drawer.Section style={styles.bottomDrawerSection}>
-                <DrawerItem 
-                    icon={({color, size}) => (
-                        <Icon 
-                        name="exit-to-app" 
-                        color={color}
-                        size={size}
-                        />
-                    )}
-                    label="Sign Out"
-                    onPress={() => {signOut()}}
-                />
-            </Drawer.Section>
+           
         </View>
     );
 }

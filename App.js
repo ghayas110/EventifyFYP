@@ -1,78 +1,146 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './screens/Homescreen'
-const Stack = createStackNavigator();
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { 
-  View, 
-  Text, 
-  TouchableOpacity, 
-  TextInput,
-  Platform,
-  StyleSheet ,
-  StatusBar,
-  Alert
-} from 'react-native';
-import MyTabs from './screens/Maintabscreen';
-import React from 'react';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ */
 
-import DrawerContent from './screens/DrawerContent';
-import RootStackScreen from './screens/RootStackScreen';
-import SignUpScreen from './screens/SignUpScreen';
-import ExploreScreen from './screens/ExploreScreen';
-import SigninScreen from './screens/SignInScreen';
-import SplashScreen from './screens/SplashScreen';
-import ProfileScreen from './screens/Profilescreen';
-import Chatbot from './screens/Chatbot';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-const Drawer = createDrawerNavigator();
-export default function App() {
-  return (
-    <View>
-    <View style={styles.header}>
-      <Text style={{fontSize: 30,margin:20 }}>Chatbot</Text>
-    <Chatbot 
-    mine 
-    text="Salam Ghayas Bhai"
-
-    />
-    <Chatbot 
-     
-    text="ji Bolie"
-
-    />
-    <Chatbot 
-     mine
-     text="Event Book Karana hai"
+ import React, { useEffect } from 'react';
+ import { View, ActivityIndicator } from 'react-native';
+ import { 
+   NavigationContainer, 
+   DefaultTheme as NavigationDefaultTheme,
+   DarkTheme as NavigationDarkTheme
+ } from '@react-navigation/native';
+ import { createDrawerNavigator } from '@react-navigation/drawer';
  
-     />
+
+ 
+ 
+ 
+ import MainTabScreen from './screens/Maintabscreen';
+
+ 
+ import { AuthContext } from './component/context';
+ 
+ import RootStackScreen from './screens/RootStackScreen';
+ 
+ import AsyncStorage from '@react-native-community/async-storage';
+import Main from './component/Main';
+ 
+ const Drawer = createDrawerNavigator();
+ 
+ const App = () => {
+   // const [isLoading, setIsLoading] = React.useState(true);
+   // const [userToken, setUserToken] = React.useState(null); 
+ 
+  
+ 
+   const initialLoginState = {
+     isLoading: true,
+     userName: null,
+     userToken: null,
+   };
+ 
+ 
+   const loginReducer = (prevState, action) => {
+     switch( action.type ) {
+       case 'RETRIEVE_TOKEN': 
+         return {
+           ...prevState,
+           userToken: action.token,
+           isLoading: false,
+         };
+       case 'LOGIN': 
+         return {
+           ...prevState,
+           userName: action.id,
+           userToken: action.token,
+           isLoading: false,
+         };
+       case 'LOGOUT': 
+         return {
+           ...prevState,
+           userName: null,
+           userToken: null,
+           isLoading: false,
+         };
+       case 'REGISTER': 
+         return {
+           ...prevState,
+           userName: action.id,
+           userToken: action.token,
+           isLoading: false,
+         };
+     }
+   };
+ 
+   const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
+ 
+   const authContext = React.useMemo(() => ({
+     signIn: async(foundUser) => {
+       // setUserToken('fgkj');
+       // setIsLoading(false);
+       const userToken = String(foundUser[0].userToken);
+       const userName = foundUser[0].username;
+       
+       try {
+         await AsyncStorage.setItem('userToken', userToken);
+       } catch(e) {
+         console.log(e);
+       }
+       // console.log('user token: ', userToken);
+       dispatch({ type: 'LOGIN', id: userName, token: userToken });
+     },
+     signOut: async() => {
+       // setUserToken(null);
+       // setIsLoading(false);
+       try {
+         await AsyncStorage.removeItem('userToken');
+       } catch(e) {
+         console.log(e);
+       }
+       dispatch({ type: 'LOGOUT' });
+     },
+     signUp: () => {
+       // setUserToken('fgkj');
+       // setIsLoading(false);
+     },
+     toggleTheme: () => {
+       setIsDarkTheme( isDarkTheme => !isDarkTheme );
+     }
+   }), []);
+ 
+   useEffect(() => {
+     setTimeout(async() => {
+       // setIsLoading(false);
+       let userToken;
+       userToken = null;
+       try {
+         userToken = await AsyncStorage.getItem('userToken');
+       } catch(e) {
+         console.log(e);
+       }
+       // console.log('user token: ', userToken);
+       dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
+     }, 1000);
+   }, []);
+ 
+   if( loginState.isLoading ) {
+     return(
+       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+         <ActivityIndicator size="large"/>
+       </View>
+     );
+   }
+   return (
+  
+     <AuthContext.Provider value={authContext}>
+     <Main/>
+     </AuthContext.Provider>
    
-</View>
-<View style={styles.footer}>
-<View style={styles.searchBox}>
-        <TextInput 
-          placeholder="Search here"
-          placeholderTextColor="#000"
-          autoCapitalize="none"
-          style={{flex:1,padding:0}}
-        />
-        <Ionicons name="ios-search" size={20} />
-      </View>
-</View>
-</View>
-  //  <ExploreScreen/>
-//     <NavigationContainer>
-      
-//  <Drawer.Navigator initialRouteName="Home" drawerContent={props=><DrawerContent {...props}/>}>
-//     <Drawer.Screen name="Home" component={MyTabs} />
-  
-//   </Drawer.Navigator> 
-//   </NavigationContainer>
-  
-
-
-  )
-}
-const styles = StyleSheet.create({
-
-})
+   );
+ }
+ 
+ export default App;

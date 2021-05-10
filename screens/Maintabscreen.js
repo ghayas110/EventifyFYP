@@ -94,7 +94,7 @@ const DetailStackScreen =({navigation})=> {
       }}>
         <HomeStack.Screen name="Home"  component={HomeScreen} options={{title:"Eventify",headerTitleAlign: 'center',headerTintColor:"black",headerLeft:()=>
         <View style={{marginLeft:10}}>
-          <MaterialCommunityIcons name="menu" color='black'  size={26} onPress={()=>navigation.openDrawer()}/>
+          {/* <MaterialCommunityIcons name="menu" color='black'  size={26} onPress={()=>navigation.openDrawer()}/> */}
           </View>,          headerRight: () => (
             <View style={{flexDirection: 'row', marginRight: 10}}>
               <Ionicons 
