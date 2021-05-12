@@ -1,4 +1,5 @@
-import React from 'react';
+  
+import React, {useContext, useState} from 'react';
 import { 
     View, 
     Text, 
@@ -15,61 +16,67 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import {AuthContext} from '../component/AuthProvider';
 
-const SignInScreen = ({navigation}) => {
+const SignUpScreen = ({navigation}) => {
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
+  
+    const {register} = useContext(AuthContext);
+  
+    // const [data, setData] = React.useState({
+    //     username: '',
+    //     password: '',
+    //     confirm_password: '',
+    //     check_textInputChange: false,
+    //     secureTextEntry: true,
+    //     confirm_secureTextEntry: true,
+    // });
 
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        confirm_password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        confirm_secureTextEntry: true,
-    });
+    // const textInputChange = (val) => {
+    //     if( val.length !== 0 ) {
+    //         setData({
+    //             ...data,
+    //             username: val,
+    //             check_textInputChange: true
+    //         });
+    //     } else {
+    //         setData({
+    //             ...data,
+    //             username: val,
+    //             check_textInputChange: false
+    //         });
+    //     }
+    // }
 
-    const textInputChange = (val) => {
-        if( val.length !== 0 ) {
-            setData({
-                ...data,
-                username: val,
-                check_textInputChange: true
-            });
-        } else {
-            setData({
-                ...data,
-                username: val,
-                check_textInputChange: false
-            });
-        }
-    }
+    // const handlePasswordChange = (val) => {
+    //     setData({
+    //         ...data,
+    //         password: val
+    //     });
+    // }
 
-    const handlePasswordChange = (val) => {
-        setData({
-            ...data,
-            password: val
-        });
-    }
+    // const handleConfirmPasswordChange = (val) => {
+    //     setData({
+    //         ...data,
+    //         confirm_password: val
+    //     });
+    // }
 
-    const handleConfirmPasswordChange = (val) => {
-        setData({
-            ...data,
-            confirm_password: val
-        });
-    }
+    // const updateSecureTextEntry = () => {
+    //     setData({
+    //         ...data,
+    //         secureTextEntry: !data.secureTextEntry
+    //     });
+    // }
 
-    const updateSecureTextEntry = () => {
-        setData({
-            ...data,
-            secureTextEntry: !data.secureTextEntry
-        });
-    }
-
-    const updateConfirmSecureTextEntry = () => {
-        setData({
-            ...data,
-            confirm_secureTextEntry: !data.confirm_secureTextEntry
-        });
-    }
+    // const updateConfirmSecureTextEntry = () => {
+    //     setData({
+    //         ...data,
+    //         confirm_secureTextEntry: !data.confirm_secureTextEntry
+    //     });
+    // }
 
     return (
       <View style={styles.container}>
@@ -82,7 +89,7 @@ const SignInScreen = ({navigation}) => {
             style={styles.footer}
         >
             <ScrollView>
-            <Text style={styles.text_footer}>Username</Text>
+            <Text style={styles.text_footer}>Email</Text>
             <View style={styles.action}>
                 <FontAwesome 
                     name="user-o"
@@ -90,12 +97,14 @@ const SignInScreen = ({navigation}) => {
                     size={20}
                 />
                 <TextInput 
-                    placeholder="Your Username"
+                    placeholder="Your Email"
                     style={styles.textInput}
                     autoCapitalize="none"
-                    onChangeText={(val) => textInputChange(val)}
+                    type="Email"
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
                 />
-                {data.check_textInputChange ? 
+                {/* {data.check_textInputChange ? 
                 <Animatable.View
                     animation="bounceIn"
                 >
@@ -105,7 +114,7 @@ const SignInScreen = ({navigation}) => {
                         size={20}
                     />
                 </Animatable.View>
-                : null}
+                : null} */}
             </View>
 
             <Text style={[styles.text_footer, {
@@ -119,12 +128,14 @@ const SignInScreen = ({navigation}) => {
                 />
                 <TextInput 
                     placeholder="Your Password"
-                    secureTextEntry={data.secureTextEntry ? true : false}
+                    secureTextEntry={true}
                     style={styles.textInput}
+                    value={password}
                     autoCapitalize="none"
-                    onChangeText={(val) => handlePasswordChange(val)}
+
+                    onChangeText={(pass) => setPassword(pass)}
                 />
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     onPress={updateSecureTextEntry}
                 >
                     {data.secureTextEntry ? 
@@ -140,7 +151,7 @@ const SignInScreen = ({navigation}) => {
                         size={20}
                     />
                     }
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
 
             <Text style={[styles.text_footer, {
@@ -154,12 +165,12 @@ const SignInScreen = ({navigation}) => {
                 />
                 <TextInput 
                     placeholder="Confirm Your Password"
-                    secureTextEntry={data.confirm_secureTextEntry ? true : false}
+                    secureTextEntry={true}
                     style={styles.textInput}
                     autoCapitalize="none"
-                    onChangeText={(val) => handleConfirmPasswordChange(val)}
+                    onChangeText={(pass) => setConfirmPassword(pass)}
                 />
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     onPress={updateConfirmSecureTextEntry}
                 >
                     {data.secureTextEntry ? 
@@ -175,7 +186,7 @@ const SignInScreen = ({navigation}) => {
                         size={20}
                     />
                     }
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <View style={styles.textPrivate}>
                 <Text style={styles.color_textPrivate}>
@@ -188,14 +199,14 @@ const SignInScreen = ({navigation}) => {
             <View style={styles.button}>
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={() => {}}
+                    onPress={() => register(email, password)}
                 >
                 <LinearGradient
                     colors={['#F99B4E', '#F99B4E']}
                     style={styles.signIn}
                 >
                     <Text style={[styles.textSign, {
-                        color:'#fff'
+                        colors:'#fff'
                     }]}>Sign Up</Text>
                 </LinearGradient>
                 </TouchableOpacity>
@@ -219,7 +230,7 @@ const SignInScreen = ({navigation}) => {
     );
 };
 
-export default SignInScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
     container: {

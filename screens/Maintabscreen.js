@@ -2,7 +2,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, HeaderBackground, HeaderTitle} from '@react-navigation/stack';
-import React from 'react';
+import React,{useContext} from 'react';
 import HomeScreen from "./Homescreen";
 import DetailScreen from "./DetailScreen";
 import ProfileScreen from './Profilescreen';
@@ -13,11 +13,14 @@ import CardListScreen from './CardListScreen';
 import CardItemDetails from './CardItemDetails'
 import EditProfile from './EditProfile';
 
+
 const Tab = createMaterialBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const DetailStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
+// const {logout} = useContext(AuthContext);
 export default function MyTabs() {
+  // const {logout} = useContext(AuthContext);
     return (
       <Tab.Navigator
         initialRouteName="Feed"
@@ -97,23 +100,23 @@ const DetailStackScreen =({navigation})=> {
           {/* <MaterialCommunityIcons name="menu" color='black'  size={26} onPress={()=>navigation.openDrawer()}/> */}
           </View>,          headerRight: () => (
             <View style={{flexDirection: 'row', marginRight: 10}}>
+              <TouchableOpacity>
               <Ionicons 
                 name="ios-search"
                 size={25}
                 color='black'
                 style={{marginTop:10}}
-                onPress={() => {}}
+               
               />
-              <TouchableOpacity
-                style={{paddingHorizontal: 10, marginTop: 2}}
-                onPress={() => {
-                  navigation.navigate('Profile');
-                }}>
-                <Avatar.Image
-               source={require('../assets/ghayas.jpg' ) }
-               size={40}
- 
-                />
+              </TouchableOpacity>
+              <TouchableOpacity >
+                 <Ionicons 
+                 name="log-out"
+                 size={25}
+                 color='black'
+                 style={{marginTop:10}}
+                 onPress={() => {}}
+               />
               </TouchableOpacity>
             </View>
           ),

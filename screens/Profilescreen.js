@@ -30,7 +30,7 @@ const ProfileScreen = () => {
           marginTop:15,
           marginBottom: 5,
         }]}>Ghayas</Title>
-        <Caption style={styles.caption}>@ghayas110</Caption>
+        <Caption style={styles.caption}>ghayas110@gmail.com</Caption>
       </View>
     </View>
   </View>
@@ -55,24 +55,24 @@ const ProfileScreen = () => {
             <Text style={styles.menuItemText}>Your Favorites</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        {/* <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="credit-card" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Payment</Text>
           </View>
-        </TouchableRipple>
+        </TouchableRipple> */}
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="share-outline" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Tell Your Friends</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        {/* <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Support</Text>
           </View>
-        </TouchableRipple>
+        </TouchableRipple> */}
         </View>
   </SafeAreaView>
    

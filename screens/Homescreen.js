@@ -1,14 +1,14 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { StyleSheet, Text, View, Button,Image,TouchableOpacity,ScrollView } from 'react-native';
-import DetailScreen from "./DetailScreen";
+
 import Swiper from 'react-native-swiper';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import StarRating from "../component/StarRating";
+
 import CardListScreen from './CardListScreen';
+import { AuthContext } from '../component/AuthProvider';
 export default function HomeScreen({navigation}) {
+  const {logout} = useContext(AuthContext);
   return (
+    
     <ScrollView style={styles.container}>
 <View  style={styles.container}>
   <View style={styles.sliderContainer}>
@@ -57,7 +57,7 @@ export default function HomeScreen({navigation}) {
 </View>
 <Text style={styles.categoryBtnTxt}>Book Event</Text>
 </TouchableOpacity>
-<TouchableOpacity style={styles.categoryBtn} onPress={()=>{}}>
+<TouchableOpacity style={styles.categoryBtn} onPress={()=>logout()}>
 <View style={styles.categoryIcon}>
 <Image source={require('../assets/expand_more.png' ) }    size={25} style={styles.categoryIcon}/>
 </View>
