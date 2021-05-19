@@ -4,7 +4,7 @@ import CardItemDetails from './CardItemDetails'
 import Card from '../component/Card';
 import firestore from '@react-native-firebase/firestore';
 
-const CardListScreen = ({navigation}) => {
+const WCardListScreen = ({navigation}) => {
   const [events, setEvent] = useState({});
   
   const getEvents = () => {
@@ -81,7 +81,7 @@ const CardListScreen = ({navigation}) => {
     );
 };
 
-export default CardListScreen;
+export default WCardListScreen;
 
 const styles = StyleSheet.create({
   container: {

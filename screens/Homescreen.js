@@ -2,7 +2,8 @@ import React,{useContext} from 'react';
 import { StyleSheet, Text, View, Button,Image,TouchableOpacity,ScrollView } from 'react-native';
 
 import Swiper from 'react-native-swiper';
-
+import CCardListScreen from './CCardListScreen';
+import WCardListScreen from './WCardListScreen';
 import CardListScreen from './CardListScreen';
 import { AuthContext } from '../component/AuthProvider';
 export default function HomeScreen({navigation}) {

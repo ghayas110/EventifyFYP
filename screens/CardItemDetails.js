@@ -1,47 +1,53 @@
-
 import React from 'react';
-import { Image, StyleSheet, Text, View,Dimensions,TouchableOpacity } from 'react-native';
-import HeaderImageScrollView, {TriggeringView} from 'react-native-image-header-scroll-view';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import HeaderImageScrollView, {
+  TriggeringView,
+} from 'react-native-image-header-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
-import { block } from 'react-native-reanimated';
+import {block} from 'react-native-reanimated';
 const MIN_HEIGHT = Platform.OS === 'ios' ? 90 : 55;
 const MAX_HEIGHT = 350;
-const CardItemDetails=({route})=> {
+const CardItemDetails = ({route}) => {
   const itemData = route.params.itemData;
-  
-  return (
 
+  return (
     <View style={styles.container}>
- 
-<TriggeringView>
-  <View>
-  
-  <Image source={itemData.image} style={styles.image} />
-  <View style={styles.titleContainer}>
-            <Text style={styles.imageTitle}>{itemData.title}</Text>
+      <TriggeringView>
+        <View>
+          <Image source={itemData.image} style={styles.image} />
+          <View style={styles.titleContainer}>
+            <Text style={styles.imageTitle}>{itemData.epname}</Text>
           </View>
-  <View style={styles.navTitleView} >
-            <Text style={styles.navTitle}>{itemData.title}</Text>
+          <View style={styles.navTitleView}>
+            <Text style={styles.navTitle}>{itemData.epname}</Text>
           </View>
           <View style={styles.titles}>
-    <Text style={styles.title}>Overview</Text>
-    </View>
-  </View>
-</TriggeringView>
-<View style={[styles.section, styles.sectionLarge]}>
-          <Text style={styles.sectionContent}>{itemData.description}</Text>
-          <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
+            <Text style={styles.title}>Overview</Text>
+          </View>
+        </View>
+      </TriggeringView>
+      <View style={[styles.section, styles.sectionLarge]}>
+        <Text style={styles.sectionContent}>{itemData.description}</Text>
+      </View>
+      <View style={{marginBottom: 10}}>
+        <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
           <Text style={styles.panelButtonTitle}>Chat Now</Text>
         </TouchableOpacity>
-        </View>
-      
+      </View>
     </View>
   );
-}
+};
 export default CardItemDetails;
 const styles = StyleSheet.create({
-  titles:{
-padding:10
+  titles: {
+    padding: 10,
   },
   container: {
     flex: 1,
@@ -52,14 +58,18 @@ padding:10
     alignSelf: 'stretch',
     resizeMode: 'cover',
     shadowColor: '#0000',
-    opacity:0.7
+    opacity: 0.7,
   },
   commandButton: {
     padding: 15,
+    width:"90%",
     borderRadius: 10,
     backgroundColor: 'red',
-    alignItems: 'center',
-    marginTop: 10,
+    margin: 10,
+    position: 'absolute',
+    zIndex: 1,
+    alignItems:"center"
+    // marginTop: '90%',
   },
   panelButtonTitle: {
     fontSize: 17,
@@ -68,8 +78,7 @@ padding:10
   },
   title: {
     fontSize: 20,
-    fontWeight:'bold'
-    
+    fontWeight: 'bold',
   },
   name: {
     fontWeight: 'bold',
@@ -117,8 +126,8 @@ padding:10
     color: 'black',
     backgroundColor: 'transparent',
     fontSize: 24,
-    marginBottom:100,
-    fontWeight:'bold'
+    marginBottom: 100,
+    fontWeight: 'bold',
   },
   navTitleView: {
     height: MIN_HEIGHT,
@@ -126,16 +135,15 @@ padding:10
     alignItems: 'center',
     paddingTop: Platform.OS === 'ios' ? 40 : 5,
     opacity: 0,
-    marginTop:-34
+    marginTop: -34,
   },
   navTitle: {
     color: 'black',
     fontSize: 18,
     backgroundColor: 'transparent',
-    
-
   },
   sectionLarge: {
-    minHeight: 300,
+    
+     minHeight: 220,
   },
 });

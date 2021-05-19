@@ -4,13 +4,13 @@ import CardItemDetails from './CardItemDetails'
 import Card from '../component/Card';
 import firestore from '@react-native-firebase/firestore';
 
-const CardListScreen = ({navigation}) => {
+const CCardListScreen = ({navigation}) => {
   const [events, setEvent] = useState({});
   
   const getEvents = () => {
     
 
-    firestore().collection("eplanner").where('epcat','==',"Birthday Event" ).onSnapshot(snapshot => (
+    firestore().collection("eplanner").where('epcat','==',"Celebration Event" ).onSnapshot(snapshot => (
       setEvent(snapshot.docs.map(doc => (
         {
 
@@ -81,7 +81,7 @@ const CardListScreen = ({navigation}) => {
     );
 };
 
-export default CardListScreen;
+export default CCardListScreen;
 
 const styles = StyleSheet.create({
   container: {
