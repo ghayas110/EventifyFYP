@@ -1,17 +1,24 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { createStackNavigator, HeaderBackground, HeaderTitle} from '@react-navigation/stack';
 import React,{useContext} from 'react';
+import Chat from "./Chat";
 import HomeScreen from "./Homescreen";
 import DetailScreen from "./DetailScreen";
+import AddChat from './AddChat';
 import ProfileScreen from './Profilescreen';
 import ExploreScreen from './ExploreScreen';
 import { View,TouchableOpacity } from 'react-native';
+import WCardListScreen from './WCardListScreen';
+import CCardListScreen from './CCardListScreen';
 import {Avatar} from 'react-native-paper';
 import CardListScreen from './CardListScreen';
+import ChatScreen from './ChatScreen';
 import CardItemDetails from './CardItemDetails'
 import EditProfile from './EditProfile';
+import GroupScreen from './GroupScreen';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -125,8 +132,19 @@ const DetailStackScreen =({navigation})=> {
         <HomeStack.Screen 
         name="CardListScreen"
         component={CardListScreen}
-        options={{title:" Planners",headerTitleAlign: 'center',headerTintColor:"white"}} />
-          
+        options={{title:" Planners",headerTitleAlign: 'center',headerTintColor:"black"}} />
+          <HomeStack.Screen 
+        name="WCardListScreen"
+        component={WCardListScreen}
+        options={{title:" Planners",headerTitleAlign: 'center',headerTintColor:"black"}} />
+        <HomeStack.Screen 
+        name="CCardListScreen"
+        component={CCardListScreen}
+        options={{title:" Planners",headerTitleAlign: 'center',headerTintColor:"black"}} />
+          <HomeStack.Screen 
+        name="GroupScreen"
+        component={GroupScreen}
+        options={{title:" Planners",headerTitleAlign: 'center',headerTintColor:"black"}} />
           <HomeStack.Screen 
         name="CardItemDetails"
         component={CardItemDetails}
@@ -134,6 +152,40 @@ const DetailStackScreen =({navigation})=> {
         
         }
          />
+            <HomeStack.Screen 
+        name="AddChat"
+        component={AddChat}
+        options={{title:" Add a NewChat",headerTitleAlign: 'center',headerTintColor:"black"}} />
+        <HomeStack.Screen 
+        name="Chat"
+        component={Chat}
+         />
+         <HomeStack.Screen 
+        name="ChatScreen"
+        component={ChatScreen}
+        options={{title:" Chat",headerTitleAlign: 'center',headerRight: () => (
+          <View style={{flexDirection: 'row', marginRight: 10}}>
+            <TouchableOpacity>
+            <Ionicons 
+              name="camera"
+              size={25}
+              color='black'
+              style={{marginTop:10}}
+             
+            />
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={1.5}  onPress={() => navigation.navigate('AddChat')}>
+               <SimpleLineIcons 
+               name="pencil"
+               size={25}
+               color='black'
+               style={{marginTop:10,marginLeft:10}}
+               onPress={() => navigation.navigate('AddChat')}
+             />
+            </TouchableOpacity>
+          </View>
+        ),headerTintColor:"black"}} />
+
       </HomeStack.Navigator>
       )
     }

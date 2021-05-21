@@ -9,7 +9,7 @@ const Card = ({itemData, onPress}) => {
       <View style={styles.card}>
         <View style={styles.cardImgWrapper}>
           <Image
-            source={itemData.image}
+            source={{uri: itemData.postImage}}
             resizeMode="cover"
             style={styles.cardImg}
           />

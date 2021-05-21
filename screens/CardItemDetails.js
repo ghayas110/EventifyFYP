@@ -12,16 +12,17 @@ import HeaderImageScrollView, {
 } from 'react-native-image-header-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import {block} from 'react-native-reanimated';
+import GroupScreen from './GroupScreen';
 const MIN_HEIGHT = Platform.OS === 'ios' ? 90 : 55;
 const MAX_HEIGHT = 350;
-const CardItemDetails = ({route}) => {
+const CardItemDetails = ({route,navigation}) => {
   const itemData = route.params.itemData;
 
   return (
     <View style={styles.container}>
       <TriggeringView>
         <View>
-          <Image source={itemData.image} style={styles.image} />
+          <Image source={{uri: itemData.postImage}} style={styles.image} />
           <View style={styles.titleContainer}>
             <Text style={styles.imageTitle}>{itemData.epname}</Text>
           </View>
@@ -37,7 +38,7 @@ const CardItemDetails = ({route}) => {
         <Text style={styles.sectionContent}>{itemData.description}</Text>
       </View>
       <View style={{marginBottom: 10}}>
-        <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
+        <TouchableOpacity style={styles.commandButton} onPress={()=>navigation.navigate(GroupScreen)}>
           <Text style={styles.panelButtonTitle}>Chat Now</Text>
         </TouchableOpacity>
       </View>

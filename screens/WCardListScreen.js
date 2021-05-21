@@ -10,7 +10,7 @@ const WCardListScreen = ({navigation}) => {
   const getEvents = () => {
     
 
-    firestore().collection("eplanner").where('epcat','==',"Birthday Event" ).onSnapshot(snapshot => (
+    firestore().collection("eplanner").where('epcat','==',"Wedding Event" ).onSnapshot(snapshot => (
       setEvent(snapshot.docs.map(doc => (
         {
 

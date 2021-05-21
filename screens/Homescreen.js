@@ -1,6 +1,8 @@
-import React,{useContext} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import { StyleSheet, Text, View, Button,Image,TouchableOpacity,ScrollView } from 'react-native';
-
+import CardItemDetails from './CardItemDetails'
+import Card from '../component/Card';
+import firestore from '@react-native-firebase/firestore';
 import Swiper from 'react-native-swiper';
 import CCardListScreen from './CCardListScreen';
 import WCardListScreen from './WCardListScreen';
@@ -8,6 +10,65 @@ import CardListScreen from './CardListScreen';
 import { AuthContext } from '../component/AuthProvider';
 export default function HomeScreen({navigation}) {
   const {logout} = useContext(AuthContext);
+  const [events, setEvent] = useState({});
+  
+  const getEvents = () => {
+    
+
+    firestore().collection("eplanner").onSnapshot(snapshot => (
+      setEvent(snapshot.docs.map(doc => (
+        {
+
+          //   id:doc.id,
+          data: doc.data()
+        }
+      )))
+    ))
+
+  };
+  useEffect(() => {
+    getEvents();
+    // var imageURL = []
+    // for (const i in events) {
+    //   console.log(events[i].data.id)
+    //   projectStorage.ref(`images/${events[i].data.id}`).getDownloadURL().then((url) => imageURL.push({ eventId: events[i].data.id, url: url }))
+    // }
+    // setimg(imageURL)
+  }, []);
+  const renderEvents = () => {
+    if (events.length > 0) {
+      console.log("events", events);
+      async function trying(url) {
+        let image = await url.then(async (url) => { return url })
+        console.log('image', image)
+        return image.toString()
+      }
+      // console.log('state', img)
+      return events.map((item, index) => {
+        var detail = []
+        console.log("ï", item)
+        for (const i in item) {
+          detail.push(item[i])
+        }
+        return detail.map((item, index) => {
+          // const storageRef = projectStorage.ref(`images/${item.id}/`).getDownloadURL();
+          return (
+<Card 
+                 itemData={item}
+                 onPress={()=> {navigation.navigate('CardItemDetails' , {itemData: item})}}
+             />
+            // <EventResults
+            //   img={item.postImage}
+            //   location={item.location}
+            //   title={item.title}
+            //   description={item.description}
+            //   price={"Rs" + item.price}
+            // />
+          );
+        })
+      })
+    }
+  };
   return (
     
     <ScrollView style={styles.container}>
@@ -29,13 +90,13 @@ export default function HomeScreen({navigation}) {
 </View>
 <Text style={styles.categoryBtnTxt}>Birthday Party</Text>
 </TouchableOpacity>
-<TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate(CardListScreen)}>
-<View style={styles.categoryIcon}>
+<TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate(WCardListScreen)}>
+<View style={styles.categoryIcon}> 
 <Image source={require('../assets/mar.png' ) }    size={35} style={styles.categoryIcon}/>
 </View>
 <Text style={styles.categoryBtnTxt}>Marrige Halls</Text>
 </TouchableOpacity>
-<TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate(CardListScreen)}>
+<TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate(CCardListScreen)}>
 <View style={styles.categoryIcon}>
 <Image source={require('../assets/party.png' ) }    size={35} style={styles.categoryIcon}/>
 
@@ -46,10 +107,10 @@ export default function HomeScreen({navigation}) {
 <View style={styles.categoryContainer}>
   <TouchableOpacity style={styles.categoryBtn} onPress={()=>{}}>
 <View style={styles.categoryIcon}>
-<Image source={require('../assets/hotel.png' ) }    size={35} style={styles.categoryIcon}/>
+<Image source={require('../assets/marker.png' ) }    size={35} style={styles.categoryIcon}/>
             
 </View>
-<Text style={styles.categoryBtnTxt}>Book Hotel</Text>
+<Text style={styles.categoryBtnTxt}>Other Events </Text>
 </TouchableOpacity>
 <TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate(CardListScreen)}>
 <View style={styles.categoryIcon}>
@@ -62,62 +123,18 @@ export default function HomeScreen({navigation}) {
 <View style={styles.categoryIcon}>
 <Image source={require('../assets/expand_more.png' ) }    size={25} style={styles.categoryIcon}/>
 </View>
-<Text style={styles.categoryBtnTxt}>Expand More</Text>
+<Text style={styles.categoryBtnTxt}>Log Out</Text>
 </TouchableOpacity>
 </View>
 
 <View style={styles.cardsWrapper}>
-              <Text style={{alignSelf:"center",fontSize:18,fontWeight:"bold", marginTop:20}} >Featured Event Planners</Text>
-              <TouchableOpacity onPress= {()=>{}}>
-              <View style={styles.card}>
-                <View style={styles.cardImgWrapper}>
-                <Image source={require('../assets/event(1).jpg' ) }resizeMode="cover" style={styles.cardImg}/>
-                </View>
-                <View style={styles.cardInfo}>
-                  <Text style={styles.cardTitle}>
-MIP Event Planners
-                  </Text>
-                  
-                  <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
-            </Text>
-                </View>
-              </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress= {()=>{}}>
-              <View style={styles.card}>
-                <View style={styles.cardImgWrapper}>
-                <Image source={require('../assets/event(2).jpg' ) }resizeMode="cover" style={styles.cardImg}/>
-                </View>
-                <View style={styles.cardInfo}>
-                  <Text style={styles.cardTitle}>
-Shah Event Planners
-                  </Text>
-                  
-                  <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
-            </Text>
-                </View>
-              </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress= {()=>{}}>
-              <View style={styles.card}>
-                <View style={styles.cardImgWrapper}>
-                <Image source={require('../assets/event(3).jpg' ) }resizeMode="cover" style={styles.cardImg}/>
-                </View>
-                <View style={styles.cardInfo}>
-                  <Text style={styles.cardTitle}>
-Fatima Event Planners
-                  </Text>
-                  
-                  <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
-            </Text>
-                </View>
-              </View>
-              </TouchableOpacity>
+              <Text style={{alignSelf:"center",fontSize:18,fontWeight:"bold", marginTop:20}} >Recent Event Planners</Text>
+           
             </View>
-            
+            <View style={styles.container}>
+       {
+        renderEvents()}
+      </View>        
             
 </View>
 </ScrollView>
