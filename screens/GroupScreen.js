@@ -1,33 +1,34 @@
 import React,{useState,useContext} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Alert, StyleSheet, Text, View } from 'react-native'
 import {Button,Input} from "react-native-elements";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../component/AuthProvider';
-import ChatScreen from './ChatScreen';
+import ChatScreen from "./ChatScreen"
 const GroupScreen = ({navigation}) => {
-    const [yemail, Yemail] = useState("");
-    const [group, setGroup] = useState("");
-    const [eemail,setEemail] = useState("");
-    const {user} = useContext(AuthContext);
-    const createGroup = async()=>{
-        await firestore().collection("rooms").add({
-           yemail:user.email,
-           group:group,
-           eemail:eemail
+ 
+  const [group, setGroup] = useState("");
+  const [eemail,setEemail] = useState("");
+  const {user} = useContext(AuthContext);
+
+    const createChat = async()=>{
+      await firestore().collection("group").add({
+        yemail:user.email,
+        group:group,
+        eemail:eemail
+
         }).then( ()=>{
-           
-      console.log('User Updated!');
-      Alert.alert(
-        'Request Submited Succesfuly',
-        'You can go check if event Planner Created Required Group'
-      );
+          Alert.alert(
+            'Request Sended',
+            'Please Wait while your group has been Created'
+          );
+            navigation.navigate("ChatScreen")
         }
         ).catch((error)=>alert(error));
     }
     return (
         <View style={styles.container}>
-            <Input
+                  <Input
             placeholder="Enter Group Name" value={group} onChangeText={(text)=>setGroup(text)}
             
             leftIcon={
@@ -42,13 +43,13 @@ const GroupScreen = ({navigation}) => {
             }
             
             />
-            <Input
-            placeholder="Event Planner Email" value={eemail} onChangeText={(text)=>setEemail(text)}
+             <Input
+            placeholder="Enter EventPlanner Email" value={eemail} onChangeText={(text)=>setEemail(text)}
             
             leftIcon={
               
             <Ionicons 
-              name="user"
+              name="chatbubbles"
               size={25}
               color='black'
               style={{marginTop:10}}
@@ -57,9 +58,9 @@ const GroupScreen = ({navigation}) => {
             }
             
             />
-            
-            <Button title="Send Group Request" onPress={createGroup}/>
-            <Button title="Go to Chat" onPress={navigation.navigate('ChatScreen')}/>
+
+
+            <Button title="Add New Chat" onPress={createChat}/>
         </View>
     )
 }

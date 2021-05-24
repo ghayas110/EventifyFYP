@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useContext,useEffect,useState} from 'react';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {
   Avatar,
@@ -7,30 +7,50 @@ import {
   Text,
   TouchableRipple,
 } from 'react-native-paper';
-
+import firestore from '@react-native-firebase/firestore';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {AuthContext} from '../component/AuthProvider';
 
 
 const ProfileScreen = () => {
-
-
-  return (
+  const {user} = useContext(AuthContext);
+  const [fusers, setFusers] = useState("");
+  const getEventP = () => {
     
+
+   
+
+  };
+  useEffect(() => {
+    const unsubscribe=firestore().collection("userdata").onSnapshot(snapshot => (
+      setFusers(snapshot.docs.map(doc => (
+        {
+
+          //   id:doc.id,
+          data: doc.data()
+        }
+      )))
+    ))
+    return unsubscribe;
+  }, []);
+  
+  return (
+   
     <SafeAreaView style={styles.container}>
     <View style={styles.userInfoSection}>
     <View style={{flexDirection: 'row', marginTop: 15}}>
       <Avatar.Image 
-        source={
-          require('../assets/ghayas.jpg' )
-        }
+        source={{
+          uri:"https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png"
+        }}
         size={80}
       />
       <View style={{marginLeft: 20}}>
         <Title style={[styles.title, {
           marginTop:15,
           marginBottom: 5,
-        }]}>Ghayas</Title>
-        <Caption style={styles.caption}>ghayas110@gmail.com</Caption>
+        }]}>{data.fname}</Title>
+        <Caption style={styles.caption}>{user.email}</Caption>
       </View>
     </View>
   </View>
@@ -73,10 +93,12 @@ const ProfileScreen = () => {
             <Text style={styles.menuItemText}>Support</Text>
           </View>
         </TouchableRipple> */}
+
         </View>
   </SafeAreaView>
    
   );
+
 };
 
 export default ProfileScreen;
