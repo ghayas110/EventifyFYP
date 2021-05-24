@@ -49,7 +49,7 @@ const ProfileScreen = () => {
         <Title style={[styles.title, {
           marginTop:15,
           marginBottom: 5,
-        }]}>{data.fname}</Title>
+        }]}>Ghayas</Title>
         <Caption style={styles.caption}>{user.email}</Caption>
       </View>
     </View>
