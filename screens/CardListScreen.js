@@ -52,6 +52,7 @@ const CardListScreen = ({navigation}) => {
                  itemData={item}
                  onPress={()=> {navigation.navigate('CardItemDetails' , {itemData: item})}}
              />
+             
             // <EventResults
             //   img={item.postImage}
             //   location={item.location}
